@@ -21,6 +21,8 @@ script:
   - docker tag udagram-feed-service abakam/udagram-feed-service:latest
   - docker build -f ./udagram-api-users/Dockerfile -t udagram-user-service ./udagram-api-users
   - docker tag udagram-user-service abakam/udagram-user-service:latest
+  - docker build -f ./deployment/docker/Dockerfile -t udagram-reverse-proxy ./deployment/docker
+  - docker tag udagram-reverse-proxy abakam/udagram-reverse-proxy:latest
 
 # Tasks to perform after the process is successful. Formatting the Docker username and password as below enables you to programmatically log in without having the password exposed in logs.
 after_success:
@@ -28,3 +30,4 @@ after_success:
   - docker push abakam/udagram-app
   - docker push abakam/udagram-feed-service
   - docker push abakam/udagram-user-service
+  - docker push abakam/udagram-reverse-proxy

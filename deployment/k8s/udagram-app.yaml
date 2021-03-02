@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: udagram-app
+  name: udagram-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: udagram-app
+  template:
+    metadata:
+      labels:
+        service: udagram-app
+        api: external
+    spec:
+      containers:
+      - image: abakam/udagram-app
+        name: udagram-app
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "1024Mi"
+            cpu: "500m"
+      restartPolicy: Always
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: udagram-app
+  name: udagram-app
+spec:
+  type: LoadBalancer
+  ports:
+  - name: "http"
+    port: 80
+    targetPort: 80
+  selector:
+    service: udagram-app
