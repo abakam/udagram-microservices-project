@@ -5,7 +5,7 @@ metadata:
     service: udagram-feed-service
   name: udagram-feed-service
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       service: udagram-feed-service
